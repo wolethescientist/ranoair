@@ -123,6 +123,7 @@ body {
   50% { transform: translateY(-16px); }
 }
 
+
 /* Solid button — no animation cost */
 .btn-shimmer {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);

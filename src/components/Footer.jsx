@@ -179,7 +179,7 @@ export default function Footer() {
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
           <p className="text-white/25 text-xs font-medium">
-            © 2024 Rano Air Limited. All rights reserved. RC: 1618851
+            © 2026 Rano Air Limited. All rights reserved. RC: 1618851
           </p>
           <div className="flex items-center gap-4">
             <Link href="/terms" className="text-white/25 hover:text-white/60 text-xs font-medium transition-colors">
