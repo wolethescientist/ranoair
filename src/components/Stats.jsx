@@ -40,11 +40,11 @@ export default function Stats() {
     >
       <div className="absolute inset-0 bg-dots opacity-20 pointer-events-none" />
       <div
-        className="absolute top-0 left-1/4 w-96 h-96 rounded-full pointer-events-none"
+        className="absolute top-0 left-1/4 w-96 h-96 rounded-full pointer-events-none hidden sm:block"
         style={{ background: 'radial-gradient(circle, rgba(165,0,80,0.2) 0%, transparent 70%)', filter: 'blur(60px)' }}
       />
       <div
-        className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full pointer-events-none"
+        className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full pointer-events-none hidden sm:block"
         style={{ background: 'radial-gradient(circle, rgba(143,1,69,0.15) 0%, transparent 70%)', filter: 'blur(80px)' }}
       />
 

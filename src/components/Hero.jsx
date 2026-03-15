@@ -60,16 +60,17 @@ export default function Hero() {
     >
       {/* Static background layers — no animation cost */}
       <div className="absolute inset-0 bg-dots opacity-40 pointer-events-none" />
+      {/* Blur orbs — hidden on mobile, visible on sm+ to avoid mobile GPU overload */}
       <div
-        className="absolute rounded-full pointer-events-none"
+        className="absolute rounded-full pointer-events-none hidden sm:block"
         style={{ width: 600, height: 600, top: '-15%', left: '-10%', background: 'rgba(255,255,255,0.06)', filter: 'blur(80px)' }}
       />
       <div
-        className="absolute rounded-full pointer-events-none"
+        className="absolute rounded-full pointer-events-none hidden sm:block"
         style={{ width: 400, height: 400, bottom: '10%', right: '-8%', background: 'rgba(255,255,255,0.04)', filter: 'blur(60px)' }}
       />
       <div
-        className="absolute rounded-full pointer-events-none"
+        className="absolute rounded-full pointer-events-none hidden sm:block"
         style={{ width: 280, height: 280, top: '20%', right: '20%', background: 'rgba(196,0,96,0.1)', filter: 'blur(50px)' }}
       />
       <div

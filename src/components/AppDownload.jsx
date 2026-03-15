@@ -19,7 +19,7 @@ export default function AppDownload() {
     >
       <div className="absolute inset-0 bg-dots opacity-30 pointer-events-none" />
       <div
-        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none hidden sm:block"
         style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }}
       />
 
