@@ -1,6 +1,5 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Plane, Star, Bell, CreditCard } from 'lucide-react';
 
 const appFeatures = [
@@ -11,11 +10,6 @@ const appFeatures = [
 ];
 
 export default function AppDownload() {
-  const leftRef = useRef(null);
-  const rightRef = useRef(null);
-  const leftInView = useInView(leftRef, { once: true, margin: '-80px' });
-  const rightInView = useInView(rightRef, { once: true, margin: '-80px' });
-
   return (
     <section
       className="relative py-24 overflow-hidden"
@@ -34,9 +28,9 @@ export default function AppDownload() {
 
           {/* Phone mockup */}
           <motion.div
-            ref={leftRef}
             initial={{ opacity: 0, x: -40 }}
-            animate={leftInView ? { opacity: 1, x: 0 } : {}}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="flex justify-center lg:justify-start order-2 lg:order-1"
           >
@@ -139,9 +133,9 @@ export default function AppDownload() {
 
           {/* Copy */}
           <motion.div
-            ref={rightRef}
             initial={{ opacity: 0, x: 40 }}
-            animate={rightInView ? { opacity: 1, x: 0 } : {}}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="order-1 lg:order-2"
           >
@@ -165,7 +159,8 @@ export default function AppDownload() {
                   <motion.li
                     key={feat.text}
                     initial={{ opacity: 0, x: 20 }}
-                    animate={rightInView ? { opacity: 1, x: 0 } : {}}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
                     className="flex items-center gap-3"
                   >

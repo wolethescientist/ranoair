@@ -1,6 +1,5 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Shield, Clock, BadgeDollarSign, Users, Star } from 'lucide-react';
 
 const features = [
@@ -35,11 +34,6 @@ const features = [
 ];
 
 export default function Features() {
-  const titleRef = useRef(null);
-  const cardsRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true, margin: '-80px' });
-  const cardsInView = useInView(cardsRef, { once: true, margin: '-60px' });
-
   return (
     <section className="relative py-24 overflow-hidden" style={{ background: '#FFF5F8' }}>
       <div className="absolute top-0 left-0 right-0 h-32 bg-white" style={{ clipPath: 'ellipse(55% 100% at 50% 0%)' }} />
@@ -48,10 +42,11 @@ export default function Features() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div ref={titleRef} className="text-center mb-16">
+        <div className="text-center mb-16">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={titleInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="text-primary font-bold text-xs uppercase tracking-widest mb-4"
           >
@@ -59,7 +54,8 @@ export default function Features() {
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
-            animate={titleInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark"
           >
@@ -75,21 +71,23 @@ export default function Features() {
           </motion.h2>
           <motion.div
             initial={{ scaleX: 0 }}
-            animate={titleInView ? { scaleX: 1 } : {}}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.4 }}
             className="h-1 w-16 bg-primary rounded-full mt-4 mx-auto origin-left"
           />
         </div>
 
         {/* Cards */}
-        <div ref={cardsRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feat, i) => {
             const Icon = feat.icon;
             return (
               <motion.div
                 key={feat.title}
                 initial={{ opacity: 0, y: 40 }}
-                animate={cardsInView ? { opacity: 1, y: 0 } : {}}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
                 className="group bg-white rounded-3xl p-7 border border-gray-100 hover:border-primary/15 hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden cursor-default"
                 style={{ boxShadow: '0 4px 24px rgba(165,0,80,0.07)', willChange: 'transform' }}

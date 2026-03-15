@@ -1,6 +1,5 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { MapPin, Mail, Phone, MessageCircle, Send } from 'lucide-react';
 
 const contactItems = [
@@ -31,13 +30,6 @@ const contactItems = [
 ];
 
 export default function Contact() {
-  const titleRef = useRef(null);
-  const leftRef = useRef(null);
-  const rightRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true, margin: '-80px' });
-  const leftInView = useInView(leftRef, { once: true, margin: '-60px' });
-  const rightInView = useInView(rightRef, { once: true, margin: '-60px' });
-
   const handleSubmit = (e) => {
     e.preventDefault();
     alert('Message sent! Our team will respond within 24 hours.');
@@ -48,10 +40,11 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div ref={titleRef} className="text-center mb-16">
+        <div className="text-center mb-16">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={titleInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="text-primary font-bold text-xs uppercase tracking-widest mb-4"
           >
@@ -59,7 +52,8 @@ export default function Contact() {
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
-            animate={titleInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark"
           >
@@ -75,7 +69,8 @@ export default function Contact() {
           </motion.h2>
           <motion.div
             initial={{ scaleX: 0 }}
-            animate={titleInView ? { scaleX: 1 } : {}}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.4 }}
             className="h-1 w-16 bg-primary rounded-full mt-4 mx-auto origin-left"
           />
@@ -85,9 +80,9 @@ export default function Contact() {
 
           {/* Contact cards */}
           <motion.div
-            ref={leftRef}
             initial={{ opacity: 0, x: -40 }}
-            animate={leftInView ? { opacity: 1, x: 0 } : {}}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="space-y-4"
           >
@@ -114,7 +109,8 @@ export default function Contact() {
                 <motion.div
                   key={item.label}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={leftInView ? { opacity: 1, y: 0 } : {}}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                   className="p-5 rounded-2xl border border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
                   style={{ boxShadow: '0 2px 12px rgba(165,0,80,0.04)', willChange: 'transform' }}
@@ -131,9 +127,9 @@ export default function Contact() {
 
           {/* Form */}
           <motion.div
-            ref={rightRef}
             initial={{ opacity: 0, x: 40 }}
-            animate={rightInView ? { opacity: 1, x: 0 } : {}}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             <form

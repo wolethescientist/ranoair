@@ -1,20 +1,17 @@
 'use client';
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { destinations } from '@/data/destinations';
 
 function DestinationCard({ dest, index }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
       transition={{ delay: index * 0.07, duration: 0.5, ease: 'easeOut' }}
       className="group relative flex-shrink-0 w-64 sm:w-72 h-96 rounded-3xl overflow-hidden cursor-pointer shadow-xl transition-shadow duration-300"
       style={{ willChange: 'transform' }}
@@ -68,8 +65,6 @@ function DestinationCard({ dest, index }) {
 
 export default function Destinations() {
   const carouselRef = useRef(null);
-  const titleRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true });
 
   const scroll = (dir) => {
     carouselRef.current?.scrollBy({ left: dir * 300, behavior: 'smooth' });
@@ -79,11 +74,12 @@ export default function Destinations() {
     <section id="destinations" className="py-24 bg-bg-light overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div ref={titleRef} className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-12">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={titleInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               className="text-primary font-bold text-xs uppercase tracking-widest mb-3"
             >
@@ -91,7 +87,8 @@ export default function Destinations() {
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
-              animate={titleInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark leading-tight"
             >
@@ -107,14 +104,16 @@ export default function Destinations() {
             </motion.h2>
             <motion.div
               initial={{ scaleX: 0 }}
-              animate={titleInView ? { scaleX: 1 } : {}}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.4 }}
               className="h-1 w-20 bg-primary rounded-full mt-3 origin-left"
             />
           </div>
           <motion.p
             initial={{ opacity: 0 }}
-            animate={titleInView ? { opacity: 1 } : {}}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-text-muted font-medium max-w-xs text-sm leading-relaxed"
           >

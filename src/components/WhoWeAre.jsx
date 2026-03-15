@@ -1,6 +1,5 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Target, Eye, Heart, CheckCircle } from 'lucide-react';
 
 const values = [
@@ -27,11 +26,6 @@ const pillars = [
 ];
 
 export default function WhoWeAre() {
-  const leftRef = useRef(null);
-  const rightRef = useRef(null);
-  const leftInView = useInView(leftRef, { once: true, margin: '-80px' });
-  const rightInView = useInView(rightRef, { once: true, margin: '-80px' });
-
   return (
     <section id="who-we-are" className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,9 +33,9 @@ export default function WhoWeAre() {
 
           {/* Left */}
           <motion.div
-            ref={leftRef}
             initial={{ opacity: 0, x: -40 }}
-            animate={leftInView ? { opacity: 1, x: 0 } : {}}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             <p className="text-primary font-bold text-xs uppercase tracking-widest mb-4">
@@ -60,7 +54,8 @@ export default function WhoWeAre() {
             </h2>
             <motion.div
               initial={{ scaleX: 0 }}
-              animate={leftInView ? { scaleX: 1 } : {}}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.3 }}
               className="h-1 w-16 bg-primary rounded-full mb-8 origin-left"
             />
@@ -84,7 +79,8 @@ export default function WhoWeAre() {
                 <motion.div
                   key={stat.num}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={leftInView ? { opacity: 1, y: 0 } : {}}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
                   className="text-center p-4 rounded-2xl"
                   style={{ background: 'linear-gradient(135deg, #FFF5F8, #FFE8F2)' }}
@@ -100,9 +96,9 @@ export default function WhoWeAre() {
 
           {/* Right */}
           <motion.div
-            ref={rightRef}
             initial={{ opacity: 0, x: 40 }}
-            animate={rightInView ? { opacity: 1, x: 0 } : {}}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="space-y-4"
           >
@@ -112,7 +108,8 @@ export default function WhoWeAre() {
                 <motion.div
                   key={pillar.label}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={rightInView ? { opacity: 1, y: 0 } : {}}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.12 }}
                   className="group p-6 rounded-3xl border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 bg-white"
                   style={{ boxShadow: '0 2px 20px rgba(165,0,80,0.05)', willChange: 'transform' }}
@@ -148,10 +145,10 @@ export default function WhoWeAre() {
               );
             })}
 
-            {/* NCAA badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={rightInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex items-center gap-4 p-5 rounded-3xl"
               style={{ background: 'linear-gradient(135deg, #8F0145, #A50050)' }}
