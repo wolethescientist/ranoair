@@ -25,7 +25,7 @@ function AirplaneSVG() {
   return (
     <motion.div
       initial={{ opacity: 0, x: -100, y: 0 }}
-      animate={{ opacity: [0, 1, 1, 0], x: ['−100px', '110vw'], y: [30, -20] }}
+      animate={{ opacity: [0, 1, 1, 0], x: ['-100px', '110vw'], y: [30, -20] }}
       transition={{ duration: 4, delay: 1.2, ease: 'easeInOut' }}
       style={{
         position: 'fixed',
