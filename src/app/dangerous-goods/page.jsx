@@ -7,133 +7,47 @@ import { AlertTriangle, Flame, Zap, Droplets, Skull, Radiation, FlaskConical, Pa
 
 const categories = [
   {
-    id: 1,
-    icon: Zap,
-    label: 'Explosives',
-    color: '#DC2626',
-    bg: 'rgba(220,38,38,0.08)',
-    border: 'rgba(220,38,38,0.2)',
-    items: [
-      'Fireworks / Pyrotechnics', 'Flares', 'Blasting caps / Detonators', 'Fuse', 'Primers',
-      'Explosive charges (blasting, demolition etc.)', 'Detonating cord', 'Air bag inflators',
-      'Igniters', 'Rockets', 'TNT / TNT compositions', 'RDX / RDX compositions', 'PETN / PETN compositions',
-    ],
+    id: 1, icon: Zap, label: 'Explosives', color: '#DC2626', bg: 'rgba(220,38,38,0.08)', border: 'rgba(220,38,38,0.2)',
+    items: ['Fireworks / Pyrotechnics', 'Flares', 'Blasting caps / Detonators', 'Fuse', 'Primers', 'Explosive charges (blasting, demolition etc.)', 'Detonating cord', 'Air bag inflators', 'Igniters', 'Rockets', 'TNT / TNT compositions', 'RDX / RDX compositions', 'PETN / PETN compositions'],
   },
   {
-    id: 2,
-    icon: Flame,
-    label: 'Gases',
-    color: '#EA580C',
-    bg: 'rgba(234,88,12,0.08)',
-    border: 'rgba(234,88,12,0.2)',
-    items: [
-      'Aerosols', 'Compressed air', 'Hydrocarbon gas-powered devices', 'Fire extinguishers',
-      'Gas cartridges', 'Fertilizer ammoniating solution', 'Insecticide gases', 'Refrigerant gases',
-      'Lighters', 'Acetylene / Oxyacetylene', 'Carbon dioxide', 'Helium / helium compounds',
-      'Hydrogen / hydrogen compounds', 'Oxygen / oxygen compounds', 'Nitrogen / nitrogen compounds',
-      'Natural gas', 'Oil gas', 'Petroleum gases', 'Butane', 'Propane', 'Ethane', 'Methane',
-      'Dimethyl ether', 'Propene / Propylene', 'Ethylene',
-    ],
+    id: 2, icon: Flame, label: 'Gases', color: '#EA580C', bg: 'rgba(234,88,12,0.08)', border: 'rgba(234,88,12,0.2)',
+    items: ['Aerosols', 'Compressed air', 'Hydrocarbon gas-powered devices', 'Fire extinguishers', 'Gas cartridges', 'Fertilizer ammoniating solution', 'Insecticide gases', 'Refrigerant gases', 'Lighters', 'Acetylene / Oxyacetylene', 'Carbon dioxide', 'Helium / helium compounds', 'Hydrogen / hydrogen compounds', 'Oxygen / oxygen compounds', 'Nitrogen / nitrogen compounds', 'Natural gas', 'Oil gas', 'Petroleum gases', 'Butane', 'Propane', 'Ethane', 'Methane', 'Dimethyl ether', 'Propene / Propylene', 'Ethylene'],
   },
   {
-    id: 3,
-    icon: Droplets,
-    label: 'Flammable Liquids & Solids',
-    color: '#D97706',
-    bg: 'rgba(217,119,6,0.08)',
-    border: 'rgba(217,119,6,0.2)',
-    items: [
-      'Acetone / Acetone oils', 'Adhesives', 'Paints / Lacquers / Varnishes', 'Alcohols',
-      'Perfumery products', 'Gasoline / Petrol', 'Diesel fuel', 'Aviation fuel',
-      'Liquid bio-fuels', 'Coal tar / Coal tar distillates', 'Petroleum crude oil',
-      'Petroleum distillates', 'Gas oil', 'Shale oil', 'Heating oil', 'Kerosene',
-      'Resins', 'Tars', 'Turpentine', 'Carbamate insecticides', 'Organochlorine pesticides',
-      'Organophosphorus pesticides', 'Copper based pesticides', 'Esters', 'Ethers',
-      'Ethanol', 'Benzene', 'Butanols', 'Dichloropropenes', 'Diethyl ether',
-      'Isobutanols', 'Isopropyls', 'Firelighters', 'Matches',
-    ],
+    id: 3, icon: Droplets, label: 'Flammable Liquids & Solids', color: '#D97706', bg: 'rgba(217,119,6,0.08)', border: 'rgba(217,119,6,0.2)',
+    items: ['Acetone / Acetone oils', 'Adhesives', 'Paints / Lacquers / Varnishes', 'Alcohols', 'Perfumery products', 'Gasoline / Petrol', 'Diesel fuel', 'Aviation fuel', 'Liquid bio-fuels', 'Coal tar / Coal tar distillates', 'Petroleum crude oil', 'Petroleum distillates', 'Gas oil', 'Shale oil', 'Heating oil', 'Kerosene', 'Resins', 'Tars', 'Turpentine', 'Carbamate insecticides', 'Organochlorine pesticides', 'Organophosphorus pesticides', 'Copper based pesticides', 'Esters', 'Ethers', 'Ethanol', 'Benzene', 'Butanols', 'Dichloropropenes', 'Diethyl ether', 'Isobutanols', 'Isopropyls', 'Firelighters', 'Matches'],
   },
   {
-    id: 4,
-    icon: FlaskConical,
-    label: 'Oxidising Substances',
-    color: '#059669',
-    bg: 'rgba(5,150,105,0.08)',
-    border: 'rgba(5,150,105,0.2)',
-    items: [
-      'Chemical oxygen generators', 'Ammonium nitrate fertilizers', 'Chlorates', 'Nitrates',
-      'Nitrites', 'Perchlorates', 'Permanganates', 'Persulphates', 'Aluminium nitrate',
-      'Ammonium dichromate', 'Ammonium persulphate', 'Calcium hypochlorite', 'Calcium nitrate',
-      'Calcium peroxide', 'Hydrogen peroxide', 'Magnesium peroxide', 'Lead nitrate',
-      'Lithium hypochlorite', 'Potassium permanganate', 'Sodium nitrate', 'Sodium persulphate',
-    ],
+    id: 4, icon: FlaskConical, label: 'Oxidising Substances', color: '#059669', bg: 'rgba(5,150,105,0.08)', border: 'rgba(5,150,105,0.2)',
+    items: ['Chemical oxygen generators', 'Ammonium nitrate fertilizers', 'Chlorates', 'Nitrates', 'Nitrites', 'Perchlorates', 'Permanganates', 'Persulphates', 'Aluminium nitrate', 'Ammonium dichromate', 'Ammonium persulphate', 'Calcium hypochlorite', 'Calcium nitrate', 'Calcium peroxide', 'Hydrogen peroxide', 'Magnesium peroxide', 'Lead nitrate', 'Lithium hypochlorite', 'Potassium permanganate', 'Sodium nitrate', 'Sodium persulphate'],
   },
   {
-    id: 5,
-    icon: Skull,
-    label: 'Toxic & Infectious Substances',
-    color: '#7C3AED',
-    bg: 'rgba(124,58,237,0.08)',
-    border: 'rgba(124,58,237,0.2)',
-    items: [
-      'Medical / Biomedical waste', 'Clinical waste', 'Biological cultures / samples / specimens',
-      'Medical cultures / samples / specimens', 'Tear gas substances', 'Motor fuel anti-knock mixture',
-      'Dyes', 'Carbamate pesticides', 'Alkaloids', 'Allyls', 'Acids', 'Arsenates', 'Arsenites',
-      'Cyanides', 'Thiols / Mercaptans', 'Cresols', 'Barium compounds', 'Arsenics / Arsenic compounds',
-      'Metavanadate', 'Adiponitrile', 'Chloroform', 'Dichloromethane', 'Hexachlorophene',
-      'Phenol', 'Resorcinol',
-    ],
+    id: 5, icon: Skull, label: 'Toxic & Infectious Substances', color: '#7C3AED', bg: 'rgba(124,58,237,0.08)', border: 'rgba(124,58,237,0.2)',
+    items: ['Medical / Biomedical waste', 'Clinical waste', 'Biological cultures / samples / specimens', 'Medical cultures / samples / specimens', 'Tear gas substances', 'Motor fuel anti-knock mixture', 'Dyes', 'Carbamate pesticides', 'Alkaloids', 'Allyls', 'Acids', 'Arsenates', 'Arsenites', 'Cyanides', 'Thiols / Mercaptans', 'Cresols', 'Barium compounds', 'Arsenics / Arsenic compounds', 'Metavanadate', 'Adiponitrile', 'Chloroform', 'Dichloromethane', 'Hexachlorophene', 'Phenol', 'Resorcinol'],
   },
   {
-    id: 6,
-    icon: Radiation,
-    label: 'Radioactive Materials',
-    color: '#2563EB',
-    bg: 'rgba(37,99,235,0.08)',
-    border: 'rgba(37,99,235,0.2)',
-    items: [
-      'Radioactive ores', 'Medical isotopes', 'Yellowcake', 'Density gauges',
-      'Mixed fission products', 'Surface contaminated objects',
-      'Caesium radionuclides / isotopes', 'Iridium radionuclides / isotopes',
-      'Americium radionuclides / isotopes', 'Plutonium radionuclides / isotopes',
-      'Radium radionuclides / isotopes', 'Thorium radionuclides / isotopes',
-      'Uranium radionuclides / isotopes', 'Depleted uranium / depleted uranium products',
-      'Uranium hexafluoride', 'Enriched Uranium',
-    ],
+    id: 6, icon: Radiation, label: 'Radioactive Materials', color: '#2563EB', bg: 'rgba(37,99,235,0.08)', border: 'rgba(37,99,235,0.2)',
+    items: ['Radioactive ores', 'Medical isotopes', 'Yellowcake', 'Density gauges', 'Mixed fission products', 'Surface contaminated objects', 'Caesium radionuclides / isotopes', 'Iridium radionuclides / isotopes', 'Americium radionuclides / isotopes', 'Plutonium radionuclides / isotopes', 'Radium radionuclides / isotopes', 'Thorium radionuclides / isotopes', 'Uranium radionuclides / isotopes', 'Depleted uranium / depleted uranium products', 'Uranium hexafluoride', 'Enriched Uranium'],
   },
   {
-    id: 7,
-    icon: FlaskConical,
-    label: 'Corrosives',
-    color: '#0891B2',
-    bg: 'rgba(8,145,178,0.08)',
-    border: 'rgba(8,145,178,0.2)',
-    items: [
-      'Acids / Acid solutions', 'Batteries', 'Battery fluid', 'Fuel cell cartridges',
-      'Dyes', 'Fire extinguisher charges', 'Formaldehyde', 'Flux', 'Paints',
-      'Alkylphenols', 'Amines', 'Polyamines', 'Sulphides', 'Polysulphides', 'Chlorides',
-      'Chlorosilanes', 'Bromine', 'Cyclohexylamine', 'Phenol / Carbolic acid',
-      'Hydrofluoric acid', 'Hydrochloric acid', 'Sulfuric acid', 'Nitric acid',
-      'Sludge acid', 'Hydrogen fluoride', 'Iodine', 'Morpholine',
-    ],
+    id: 7, icon: FlaskConical, label: 'Corrosives', color: '#0891B2', bg: 'rgba(8,145,178,0.08)', border: 'rgba(8,145,178,0.2)',
+    items: ['Acids / Acid solutions', 'Batteries', 'Battery fluid', 'Fuel cell cartridges', 'Dyes', 'Fire extinguisher charges', 'Formaldehyde', 'Flux', 'Paints', 'Alkylphenols', 'Amines', 'Polyamines', 'Sulphides', 'Polysulphides', 'Chlorides', 'Chlorosilanes', 'Bromine', 'Cyclohexylamine', 'Phenol / Carbolic acid', 'Hydrofluoric acid', 'Hydrochloric acid', 'Sulfuric acid', 'Nitric acid', 'Sludge acid', 'Hydrogen fluoride', 'Iodine', 'Morpholine'],
   },
   {
-    id: 8,
-    icon: Package,
-    label: 'Miscellaneous',
-    color: '#A50050',
-    bg: 'rgba(165,0,80,0.08)',
-    border: 'rgba(165,0,80,0.2)',
-    items: [
-      'Pocket Knife', 'Scissors', 'Gun', 'Screw drivers',
-      'Dry ice / Cardice / Solid carbon dioxide', 'Expandable polymeric beads / Polystyrene beads',
-      'Ammonium nitrate fertilizers', 'Blue asbestos / Crocidolite',
-      'Battery powered equipment', 'Battery powered vehicles', 'Fuel cell engines',
-      'Internal combustion engines', 'Vehicles', 'Magnetized material',
-      'Dangerous goods in apparatus', 'Dangerous goods in machinery',
-    ],
+    id: 8, icon: Package, label: 'Miscellaneous', color: '#A50050', bg: 'rgba(165,0,80,0.08)', border: 'rgba(165,0,80,0.2)',
+    items: ['Pocket Knife', 'Scissors', 'Gun', 'Screw drivers', 'Dry ice / Cardice / Solid carbon dioxide', 'Expandable polymeric beads / Polystyrene beads', 'Ammonium nitrate fertilizers', 'Blue asbestos / Crocidolite', 'Battery powered equipment', 'Battery powered vehicles', 'Fuel cell engines', 'Internal combustion engines', 'Vehicles', 'Magnetized material', 'Dangerous goods in apparatus', 'Dangerous goods in machinery'],
   },
 ];
+
+const heroContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+};
+const heroItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
 
 function CategoryCard({ cat, index }) {
   const [open, setOpen] = useState(false);
@@ -153,10 +67,7 @@ function CategoryCard({ cat, index }) {
         className="w-full flex items-center justify-between gap-4 p-5 text-left hover:opacity-80 transition-opacity"
       >
         <div className="flex items-center gap-3">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: cat.color + '20' }}
-          >
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: cat.color + '20' }}>
             <Icon className="w-5 h-5" style={{ color: cat.color }} />
           </div>
           <div>
@@ -209,46 +120,42 @@ export default function DangerousGoodsPage() {
     <main>
       <Navbar />
 
-      {/* Hero */}
+      {/* Hero — stagger variants */}
       <section
         className="relative pt-32 pb-20 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #8F0145 0%, #A50050 60%, #C40060 100%)' }}
       >
         <div className="absolute inset-0 bg-dots opacity-30 pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-4 text-center">
+        <motion.div
+          variants={heroContainer}
+          initial="hidden"
+          animate="show"
+          className="relative max-w-4xl mx-auto px-4 text-center"
+        >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            variants={heroItem}
             className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-6"
           >
             <AlertTriangle className="w-8 h-8 text-white" />
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4"
-          >
+          <motion.h1 variants={heroItem} className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Dangerous Goods Policy
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-white/70 font-medium text-base max-w-2xl mx-auto"
-          >
+          <motion.p variants={heroItem} className="text-white/70 font-medium text-base max-w-2xl mx-auto">
             Rano Air follows IATA Dangerous Goods Regulations. These items pose a risk to health, safety, property or the environment and are strictly prohibited or restricted.
           </motion.p>
-        </div>
+        </motion.div>
         <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: 'linear-gradient(to bottom, transparent, #fff)' }} />
       </section>
 
       {/* Content */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          {/* Warning banner */}
+          {/* Warning banner — whileInView since it's below the hero fold */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="flex items-start gap-4 p-5 rounded-2xl mb-10"
             style={{ background: 'rgba(165,0,80,0.06)', border: '1px solid rgba(165,0,80,0.2)' }}
           >
@@ -276,7 +183,6 @@ export default function DangerousGoodsPage() {
             ))}
           </div>
 
-          {/* Contact note */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -1,4 +1,5 @@
 import './globals.css';
+import MotionProvider from '@/components/MotionProvider';
 
 export const metadata = {
   title: 'Rano Air — Fly the Rano Way',
@@ -33,7 +34,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-quicksand antialiased">
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

@@ -52,6 +52,16 @@ const faqs = [
   },
 ];
 
+/* Shared stagger pattern for inner page heroes */
+const heroContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+};
+const heroItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
 function FAQItem({ faq, index }) {
   const [open, setOpen] = useState(false);
 
@@ -106,36 +116,34 @@ export default function FAQPage() {
     <main>
       <Navbar />
 
-      {/* Hero */}
+      {/* Hero — stagger variants, above fold */}
       <section
         className="relative pt-32 pb-20 overflow-hidden"
         style={{ background: 'linear-gradient(135deg, #8F0145 0%, #A50050 60%, #C40060 100%)' }}
       >
         <div className="absolute inset-0 bg-dots opacity-30 pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-4 text-center">
+        <motion.div
+          variants={heroContainer}
+          initial="hidden"
+          animate="show"
+          className="relative max-w-4xl mx-auto px-4 text-center"
+        >
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            variants={heroItem}
             className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-6"
           >
             <HelpCircle className="w-8 h-8 text-white" />
           </motion.div>
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            variants={heroItem}
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4"
           >
             Frequently Asked Questions
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-white/70 font-medium text-base"
-          >
+          <motion.p variants={heroItem} className="text-white/70 font-medium text-base">
             Everything you need to know about flying with Rano Air
           </motion.p>
-        </div>
+        </motion.div>
         <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: 'linear-gradient(to bottom, transparent, #fff)' }} />
       </section>
 
@@ -148,7 +156,6 @@ export default function FAQPage() {
             ))}
           </div>
 
-          {/* Still have questions */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
