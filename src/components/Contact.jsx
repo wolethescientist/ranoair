@@ -1,5 +1,6 @@
 'use client';
-import { useReveal } from '@/hooks/useReveal';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { MapPin, Mail, Phone, MessageCircle, Send } from 'lucide-react';
 
 const contactItems = [
@@ -30,9 +31,12 @@ const contactItems = [
 ];
 
 export default function Contact() {
-  const titleRef = useReveal();
-  const leftRef = useReveal();
-  const rightRef = useReveal();
+  const titleRef = useRef(null);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  const titleInView = useInView(titleRef, { once: true, margin: '-80px' });
+  const leftInView = useInView(leftRef, { once: true, margin: '-60px' });
+  const rightInView = useInView(rightRef, { once: true, margin: '-60px' });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,11 +48,21 @@ export default function Contact() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div ref={titleRef} className="fade-up text-center mb-16">
-          <p className="text-primary font-bold text-xs uppercase tracking-widest mb-4">
+        <div ref={titleRef} className="text-center mb-16">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={titleInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="text-primary font-bold text-xs uppercase tracking-widest mb-4"
+          >
             Get in Touch
-          </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark">
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={titleInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark"
+          >
             We're Here to{' '}
             <span style={{
               background: 'linear-gradient(135deg, #A50050, #C40060)',
@@ -58,14 +72,25 @@ export default function Contact() {
             }}>
               Help
             </span>
-          </h2>
-          <div className="h-1 w-16 bg-primary rounded-full mt-4 mx-auto line-reveal in-view" />
+          </motion.h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={titleInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="h-1 w-16 bg-primary rounded-full mt-4 mx-auto origin-left"
+          />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
 
           {/* Contact cards */}
-          <div ref={leftRef} className="fade-left space-y-4">
+          <motion.div
+            ref={leftRef}
+            initial={{ opacity: 0, x: -40 }}
+            animate={leftInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="space-y-4"
+          >
             {contactItems.map((item, i) => {
               const Icon = item.icon;
               const inner = (
@@ -86,23 +111,31 @@ export default function Contact() {
               );
 
               return (
-                <div
+                <motion.div
                   key={item.label}
-                  className={`d${i + 1} p-5 rounded-2xl border border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300`}
-                  style={{ boxShadow: '0 2px 12px rgba(165,0,80,0.04)' }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={leftInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  className="p-5 rounded-2xl border border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
+                  style={{ boxShadow: '0 2px 12px rgba(165,0,80,0.04)', willChange: 'transform' }}
                 >
                   {item.href ? (
                     <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
                       {inner}
                     </a>
                   ) : inner}
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
 
           {/* Form */}
-          <div ref={rightRef} className="fade-right">
+          <motion.div
+            ref={rightRef}
+            initial={{ opacity: 0, x: 40 }}
+            animate={rightInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             <form
               onSubmit={handleSubmit}
               className="p-5 sm:p-8 rounded-3xl"
@@ -159,7 +192,7 @@ export default function Contact() {
                 Send Message
               </button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

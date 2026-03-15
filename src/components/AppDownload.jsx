@@ -1,6 +1,7 @@
 'use client';
-import { useReveal } from '@/hooks/useReveal';
-import { Plane, Star, Bell, CreditCard, Smartphone } from 'lucide-react';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Plane, Star, Bell, CreditCard } from 'lucide-react';
 
 const appFeatures = [
   { icon: Plane, text: 'Book flights in under 2 minutes' },
@@ -10,8 +11,10 @@ const appFeatures = [
 ];
 
 export default function AppDownload() {
-  const leftRef = useReveal();
-  const rightRef = useReveal();
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  const leftInView = useInView(leftRef, { once: true, margin: '-80px' });
+  const rightInView = useInView(rightRef, { once: true, margin: '-80px' });
 
   return (
     <section
@@ -30,7 +33,13 @@ export default function AppDownload() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
 
           {/* Phone mockup */}
-          <div ref={leftRef} className="fade-left flex justify-center lg:justify-start order-2 lg:order-1">
+          <motion.div
+            ref={leftRef}
+            initial={{ opacity: 0, x: -40 }}
+            animate={leftInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="flex justify-center lg:justify-start order-2 lg:order-1"
+          >
             <div
               className="relative"
               style={{ animation: 'phoneFloat 4s ease-in-out infinite', willChange: 'transform' }}
@@ -126,10 +135,16 @@ export default function AppDownload() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Copy */}
-          <div ref={rightRef} className="fade-right order-1 lg:order-2">
+          <motion.div
+            ref={rightRef}
+            initial={{ opacity: 0, x: 40 }}
+            animate={rightInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="order-1 lg:order-2"
+          >
             <p className="text-white/60 font-bold text-xs uppercase tracking-widest mb-4">
               Download the App
             </p>
@@ -147,12 +162,18 @@ export default function AppDownload() {
               {appFeatures.map((feat, i) => {
                 const Icon = feat.icon;
                 return (
-                  <li key={feat.text} className={`flex items-center gap-3 fade-up d${i + 1}`}>
+                  <motion.li
+                    key={feat.text}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={rightInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
+                    className="flex items-center gap-3"
+                  >
                     <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shrink-0">
                       <Icon className="w-4 h-4 text-white/80" />
                     </div>
                     <span className="text-white/80 font-medium text-sm">{feat.text}</span>
-                  </li>
+                  </motion.li>
                 );
               })}
             </ul>
@@ -190,7 +211,7 @@ export default function AppDownload() {
                 </div>
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

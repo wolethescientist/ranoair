@@ -1,5 +1,6 @@
 'use client';
-import { useReveal } from '@/hooks/useReveal';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Target, Eye, Heart, CheckCircle } from 'lucide-react';
 
 const values = [
@@ -26,8 +27,10 @@ const pillars = [
 ];
 
 export default function WhoWeAre() {
-  const leftRef = useReveal();
-  const rightRef = useReveal();
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  const leftInView = useInView(leftRef, { once: true, margin: '-80px' });
+  const rightInView = useInView(rightRef, { once: true, margin: '-80px' });
 
   return (
     <section id="who-we-are" className="py-24 bg-white overflow-hidden">
@@ -35,7 +38,12 @@ export default function WhoWeAre() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
           {/* Left */}
-          <div ref={leftRef} className="fade-left">
+          <motion.div
+            ref={leftRef}
+            initial={{ opacity: 0, x: -40 }}
+            animate={leftInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             <p className="text-primary font-bold text-xs uppercase tracking-widest mb-4">
               Who We Are
             </p>
@@ -50,7 +58,12 @@ export default function WhoWeAre() {
                 Regional Airline
               </span>
             </h2>
-            <div className="h-1 w-16 bg-primary rounded-full mb-8 line-reveal in-view" />
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={leftInView ? { scaleX: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="h-1 w-16 bg-primary rounded-full mb-8 origin-left"
+            />
 
             <p className="text-text-muted text-base leading-relaxed mb-4 font-medium">
               Rano Air is a licensed airline, incorporated in 2019, operating under the regulations,
@@ -67,9 +80,12 @@ export default function WhoWeAre() {
                 { num: '5', label: 'EMB 145\nAircraft' },
                 { num: '9', label: 'Active\nDestinations' },
                 { num: '100%', label: 'NCAA\nLicensed' },
-              ].map((stat) => (
-                <div
+              ].map((stat, i) => (
+                <motion.div
                   key={stat.num}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={leftInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
                   className="text-center p-4 rounded-2xl"
                   style={{ background: 'linear-gradient(135deg, #FFF5F8, #FFE8F2)' }}
                 >
@@ -77,20 +93,29 @@ export default function WhoWeAre() {
                   <div className="text-[10px] sm:text-xs font-semibold text-text-muted leading-tight whitespace-pre-line">
                     {stat.label}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Right */}
-          <div ref={rightRef} className="fade-right space-y-4">
+          <motion.div
+            ref={rightRef}
+            initial={{ opacity: 0, x: 40 }}
+            animate={rightInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="space-y-4"
+          >
             {pillars.map((pillar, i) => {
               const Icon = pillar.icon;
               return (
-                <div
+                <motion.div
                   key={pillar.label}
-                  className={`group p-6 rounded-3xl border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 bg-white d${i + 1}`}
-                  style={{ boxShadow: '0 2px 20px rgba(165,0,80,0.05)' }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={rightInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.12 }}
+                  className="group p-6 rounded-3xl border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 bg-white"
+                  style={{ boxShadow: '0 2px 20px rgba(165,0,80,0.05)', willChange: 'transform' }}
                 >
                   <div className="flex items-start gap-4">
                     <div
@@ -119,12 +144,15 @@ export default function WhoWeAre() {
                       )}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
 
             {/* NCAA badge */}
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={rightInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 }}
               className="flex items-center gap-4 p-5 rounded-3xl"
               style={{ background: 'linear-gradient(135deg, #8F0145, #A50050)' }}
             >
@@ -142,8 +170,8 @@ export default function WhoWeAre() {
                   <CheckCircle className="w-4 h-4 text-green-400" />
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

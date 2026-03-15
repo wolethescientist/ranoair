@@ -1,5 +1,6 @@
 'use client';
-import { useReveal } from '@/hooks/useReveal';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Shield, Clock, BadgeDollarSign, Users, Star } from 'lucide-react';
 
 const features = [
@@ -34,8 +35,10 @@ const features = [
 ];
 
 export default function Features() {
-  const titleRef = useReveal();
-  const cardsRef = useReveal();
+  const titleRef = useRef(null);
+  const cardsRef = useRef(null);
+  const titleInView = useInView(titleRef, { once: true, margin: '-80px' });
+  const cardsInView = useInView(cardsRef, { once: true, margin: '-60px' });
 
   return (
     <section className="relative py-24 overflow-hidden" style={{ background: '#FFF5F8' }}>
@@ -45,11 +48,21 @@ export default function Features() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div ref={titleRef} className="fade-up text-center mb-16">
-          <p className="text-primary font-bold text-xs uppercase tracking-widest mb-4">
+        <div ref={titleRef} className="text-center mb-16">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={titleInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="text-primary font-bold text-xs uppercase tracking-widest mb-4"
+          >
             Why Fly With Us
-          </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark">
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={titleInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark"
+          >
             The Rano Air{' '}
             <span style={{
               background: 'linear-gradient(135deg, #A50050, #C40060)',
@@ -59,8 +72,13 @@ export default function Features() {
             }}>
               Difference
             </span>
-          </h2>
-          <div className="h-1 w-16 bg-primary rounded-full mt-4 mx-auto line-reveal in-view" />
+          </motion.h2>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={titleInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="h-1 w-16 bg-primary rounded-full mt-4 mx-auto origin-left"
+          />
         </div>
 
         {/* Cards */}
@@ -68,9 +86,12 @@ export default function Features() {
           {features.map((feat, i) => {
             const Icon = feat.icon;
             return (
-              <div
+              <motion.div
                 key={feat.title}
-                className={`fade-up d${i + 1} group bg-white rounded-3xl p-7 border border-gray-100 hover:border-primary/15 hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden cursor-default`}
+                initial={{ opacity: 0, y: 40 }}
+                animate={cardsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: i * 0.1, ease: 'easeOut' }}
+                className="group bg-white rounded-3xl p-7 border border-gray-100 hover:border-primary/15 hover:-translate-y-1.5 transition-all duration-300 relative overflow-hidden cursor-default"
                 style={{ boxShadow: '0 4px 24px rgba(165,0,80,0.07)', willChange: 'transform' }}
               >
                 <div
@@ -91,7 +112,7 @@ export default function Features() {
                 <p className="text-text-muted text-sm leading-relaxed font-medium">
                   {feat.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>
