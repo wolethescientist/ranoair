@@ -1,39 +1,28 @@
 'use client';
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useReveal } from '@/hooks/useReveal';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { destinations } from '@/data/destinations';
 
 function DestinationCard({ dest, index }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
-
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50, scale: 0.95 }}
-      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ delay: index * 0.08, duration: 0.55, ease: 'easeOut' }}
-      className="group relative flex-shrink-0 w-64 sm:w-72 h-96 rounded-3xl overflow-hidden cursor-pointer shadow-xl transition-shadow duration-300"
+    <div
+      className={`fade-up d${Math.min(index + 1, 9)} group relative flex-shrink-0 w-64 sm:w-72 h-96 rounded-3xl overflow-hidden cursor-pointer shadow-xl transition-shadow duration-300`}
       style={{ willChange: 'transform' }}
     >
-      {/* Background image */}
+      {/* Image */}
       <div className="absolute inset-0">
         <Image
           src={dest.image}
           alt={dest.name}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
           sizes="(max-width: 768px) 256px, 288px"
-          onError={(e) => {
-            e.target.style.display = 'none';
-          }}
         />
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#1A0010] via-transparent to-transparent opacity-80" />
-        <div className="absolute inset-0 dest-card-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+        <div className="absolute inset-0 dest-card-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Region badge */}
@@ -48,115 +37,67 @@ function DestinationCard({ dest, index }) {
 
       {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 z-10 p-5">
-        {/* City name */}
-        <div className="flex items-end justify-between mb-2">
-          <div>
-            <h3 className="text-white font-bold text-2xl leading-tight">{dest.name}</h3>
-            <div className="flex items-center gap-1.5 mt-1">
-              <MapPin className="w-3 h-3 text-white/60" />
-              <span className="text-white/60 text-xs font-medium">{dest.state}</span>
-            </div>
-          </div>
+        <h3 className="text-white font-bold text-2xl leading-tight">{dest.name}</h3>
+        <div className="flex items-center gap-1.5 mt-1 mb-3">
+          <MapPin className="w-3 h-3 text-white/60" />
+          <span className="text-white/60 text-xs font-medium">{dest.state}</span>
         </div>
 
-        {/* Description — slides up on hover */}
-        <div className="overflow-hidden">
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            className="group-hover:block"
-            style={{ height: 0 }}
-          >
-          </motion.div>
-          <p className="text-white/70 text-xs leading-relaxed line-clamp-2 mb-0 max-h-0 group-hover:max-h-20 overflow-hidden transition-[max-height] duration-500">
-            {dest.description.slice(0, 100)}...
-          </p>
-        </div>
-
-        {/* CTA */}
-        <div className="flex items-center justify-between mt-3">
+        <div className="flex items-center justify-between">
           <Link
             href={`/destinations/${dest.id}`}
-            className="flex items-center gap-2 text-white font-bold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-3 group-hover:translate-y-0 hover:gap-3"
+            className="flex items-center gap-2 text-white font-bold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 hover:gap-3"
           >
-            Explore
-            <ArrowRight className="w-4 h-4" />
+            Explore <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             href="#booking"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector('#booking')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={(e) => { e.preventDefault(); document.querySelector('#booking')?.scrollIntoView({ behavior: 'smooth' }); }}
             className="text-[11px] font-bold text-white uppercase tracking-widest px-3 py-1.5 rounded-full border border-white/30 hover:bg-white hover:text-primary transition-all duration-200"
           >
             Book Now
           </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 export default function Destinations() {
   const carouselRef = useRef(null);
-  const titleRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true });
+  const titleRef = useReveal();
+  const cardsRef = useReveal();
 
   const scroll = (dir) => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: dir * 300, behavior: 'smooth' });
-    }
+    carouselRef.current?.scrollBy({ left: dir * 300, behavior: 'smooth' });
   };
 
   return (
     <section id="destinations" className="py-24 bg-bg-light overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div ref={titleRef} className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-12">
+
+        {/* Header */}
+        <div ref={titleRef} className="fade-up flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-12">
           <div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={titleInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="text-primary font-bold text-xs uppercase tracking-widest mb-3"
-            >
+            <p className="text-primary font-bold text-xs uppercase tracking-widest mb-3">
               Where We Fly
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={titleInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark leading-tight"
-            >
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark leading-tight">
               Our{' '}
-              <span
-                className="relative inline-block"
-                style={{
-                  background: 'linear-gradient(135deg, #A50050, #C40060)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
+              <span style={{
+                background: 'linear-gradient(135deg, #A50050, #C40060)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
                 Destinations
               </span>
-            </motion.h2>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={titleInView ? { scaleX: 1 } : {}}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="h-1 w-20 bg-primary rounded-full mt-3 origin-left"
-            />
+            </h2>
+            <div className="h-1 w-20 bg-primary rounded-full mt-3 line-reveal in-view" />
           </div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={titleInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-text-muted font-medium max-w-xs text-sm leading-relaxed"
-          >
+          <p className="text-text-muted font-medium max-w-xs text-sm leading-relaxed">
             Connecting 9 cities across Nigeria with comfort, safety, and punctuality.
-          </motion.p>
+          </p>
         </div>
 
         {/* Carousel Controls */}
@@ -175,24 +116,23 @@ export default function Destinations() {
           </button>
         </div>
 
-        {/* Horizontal scroll carousel */}
+        {/* Carousel */}
         <div
-          ref={carouselRef}
-          className="flex gap-5 overflow-x-auto hide-scrollbar pb-6 -mx-4 px-4"
+          ref={cardsRef}
+          className="in-view"
         >
-          {destinations.map((dest, i) => (
-            <DestinationCard key={dest.id} dest={dest} index={i} />
-          ))}
+          <div
+            ref={carouselRef}
+            className="flex gap-5 overflow-x-auto hide-scrollbar pb-6 -mx-4 px-4"
+          >
+            {destinations.map((dest, i) => (
+              <DestinationCard key={dest.id} dest={dest} index={i} />
+            ))}
+          </div>
         </div>
 
-        {/* Destination pills — quick nav */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 flex flex-wrap gap-2.5 justify-center"
-        >
+        {/* Pills */}
+        <div className="mt-10 flex flex-wrap gap-2.5 justify-center fade-up">
           {destinations.map((dest) => (
             <Link
               key={dest.id}
@@ -202,7 +142,7 @@ export default function Destinations() {
               {dest.name}
             </Link>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

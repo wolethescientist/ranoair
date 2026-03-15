@@ -1,16 +1,12 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useReveal } from '@/hooks/useReveal';
 import { MapPin, Mail, Phone, MessageCircle, Send } from 'lucide-react';
 
 const contactItems = [
   {
     icon: MapPin,
     label: 'Head Office',
-    lines: [
-      'Plot 1497, Cadastral Zone B06',
-      'Mabushi District, Abuja FCT',
-    ],
+    lines: ['Plot 1497, Cadastral Zone B06', 'Mabushi District, Abuja FCT'],
     href: null,
   },
   {
@@ -34,8 +30,9 @@ const contactItems = [
 ];
 
 export default function Contact() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const titleRef = useReveal();
+  const leftRef = useReveal();
+  const rightRef = useReveal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,50 +40,35 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" ref={ref} className="py-24 bg-white overflow-hidden">
+    <section id="contact" className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
-        <div className="text-center mb-16">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="text-primary font-bold text-xs uppercase tracking-widest mb-4"
-          >
+        <div ref={titleRef} className="fade-up text-center mb-16">
+          <p className="text-primary font-bold text-xs uppercase tracking-widest mb-4">
             Get in Touch
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark"
-          >
+          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark">
             We're Here to{' '}
-            <span
-              style={{
-                background: 'linear-gradient(135deg, #A50050, #C40060)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
+            <span style={{
+              background: 'linear-gradient(135deg, #A50050, #C40060)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
               Help
             </span>
-          </motion.h2>
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={inView ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="h-1 w-16 bg-primary rounded-full mt-4 mx-auto"
-          />
+          </h2>
+          <div className="h-1 w-16 bg-primary rounded-full mt-4 mx-auto line-reveal in-view" />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact info cards */}
-          <div className="space-y-4">
+
+          {/* Contact cards */}
+          <div ref={leftRef} className="fade-left space-y-4">
             {contactItems.map((item, i) => {
               const Icon = item.icon;
-              const content = (
+              const inner = (
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
@@ -104,105 +86,80 @@ export default function Contact() {
               );
 
               return (
-                <motion.div
+                <div
                   key={item.label}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.1 + i * 0.1 }}
-                  className="group p-5 rounded-2xl border border-gray-100 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/8 transition-all duration-300"
+                  className={`d${i + 1} p-5 rounded-2xl border border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300`}
                   style={{ boxShadow: '0 2px 12px rgba(165,0,80,0.04)' }}
                 >
                   {item.href ? (
-                    <a
-                      href={item.href}
-                      target={item.href.startsWith('http') ? '_blank' : undefined}
-                      rel="noopener noreferrer"
-                      className="block hover:no-underline"
-                    >
-                      {content}
+                    <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
+                      {inner}
                     </a>
-                  ) : content}
-                </motion.div>
+                  ) : inner}
+                </div>
               );
             })}
           </div>
 
-          {/* Contact form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          {/* Form */}
+          <div ref={rightRef} className="fade-right">
             <form
               onSubmit={handleSubmit}
               className="p-5 sm:p-8 rounded-3xl"
-              style={{
-                background: '#FFF5F8',
-                border: '1px solid rgba(165,0,80,0.1)',
-              }}
+              style={{ background: '#FFF5F8', border: '1px solid rgba(165,0,80,0.1)' }}
             >
               <h3 className="font-bold text-text-dark text-xl mb-6">Send Us a Message</h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label className="block text-xs font-semibold text-text-muted uppercase tracking-widest mb-1.5">
-                    Full Name
-                  </label>
+                  <label className="block text-xs font-semibold text-text-muted uppercase tracking-widest mb-1.5">Full Name</label>
                   <input
                     type="text"
                     placeholder="Musa Ibrahim"
                     required
-                    className="w-full bg-white border-2 border-gray-100 hover:border-primary/30 focus:border-primary rounded-xl px-4 py-3 text-sm font-medium text-text-dark outline-none transition-all duration-200 placeholder:text-gray-400"
+                    className="w-full bg-white border-2 border-gray-100 hover:border-primary/30 focus:border-primary rounded-xl px-4 py-3 text-sm font-medium text-text-dark outline-none transition-colors duration-200 placeholder:text-gray-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-text-muted uppercase tracking-widest mb-1.5">
-                    Email
-                  </label>
+                  <label className="block text-xs font-semibold text-text-muted uppercase tracking-widest mb-1.5">Email</label>
                   <input
                     type="email"
                     placeholder="you@example.com"
                     required
-                    className="w-full bg-white border-2 border-gray-100 hover:border-primary/30 focus:border-primary rounded-xl px-4 py-3 text-sm font-medium text-text-dark outline-none transition-all duration-200 placeholder:text-gray-400"
+                    className="w-full bg-white border-2 border-gray-100 hover:border-primary/30 focus:border-primary rounded-xl px-4 py-3 text-sm font-medium text-text-dark outline-none transition-colors duration-200 placeholder:text-gray-400"
                   />
                 </div>
               </div>
 
               <div className="mb-4">
-                <label className="block text-xs font-semibold text-text-muted uppercase tracking-widest mb-1.5">
-                  Subject
-                </label>
+                <label className="block text-xs font-semibold text-text-muted uppercase tracking-widest mb-1.5">Subject</label>
                 <input
                   type="text"
                   placeholder="How can we help you?"
                   required
-                  className="w-full bg-white border-2 border-gray-100 hover:border-primary/30 focus:border-primary rounded-xl px-4 py-3 text-sm font-medium text-text-dark outline-none transition-all duration-200 placeholder:text-gray-400"
+                  className="w-full bg-white border-2 border-gray-100 hover:border-primary/30 focus:border-primary rounded-xl px-4 py-3 text-sm font-medium text-text-dark outline-none transition-colors duration-200 placeholder:text-gray-400"
                 />
               </div>
 
               <div className="mb-6">
-                <label className="block text-xs font-semibold text-text-muted uppercase tracking-widest mb-1.5">
-                  Message
-                </label>
+                <label className="block text-xs font-semibold text-text-muted uppercase tracking-widest mb-1.5">Message</label>
                 <textarea
                   rows={4}
                   placeholder="Tell us more about your enquiry..."
                   required
-                  className="w-full bg-white border-2 border-gray-100 hover:border-primary/30 focus:border-primary rounded-xl px-4 py-3 text-sm font-medium text-text-dark outline-none transition-all duration-200 resize-none placeholder:text-gray-400"
+                  className="w-full bg-white border-2 border-gray-100 hover:border-primary/30 focus:border-primary rounded-xl px-4 py-3 text-sm font-medium text-text-dark outline-none transition-colors duration-200 resize-none placeholder:text-gray-400"
                 />
               </div>
 
-              <motion.button
+              <button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full btn-shimmer text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-primary/25"
+                className="w-full btn-shimmer text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-primary/25 active:scale-95 transition-transform duration-150"
               >
                 <Send className="w-5 h-5" />
                 Send Message
-              </motion.button>
+              </button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

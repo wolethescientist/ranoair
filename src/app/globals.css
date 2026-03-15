@@ -105,6 +105,12 @@ body {
   50% { transform: translateY(6px); }
 }
 
+/* Phone float — CSS only */
+@keyframes phoneFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-16px); }
+}
+
 /* Solid button — no animation cost */
 .btn-shimmer {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
@@ -144,6 +150,81 @@ body {
 }
 
 /* Cloud shapes are now static in Hero.jsx — no animation needed */
+
+/* ── CSS Reveal System (compositor-thread, zero JS per frame) ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  will-change: transform, opacity;
+}
+.fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  will-change: transform, opacity;
+}
+.fade-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  will-change: transform, opacity;
+}
+.fade-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  will-change: opacity;
+}
+.fade-in.in-view {
+  opacity: 1;
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: transform, opacity;
+}
+.scale-in.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays */
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.16s; }
+.d3 { transition-delay: 0.24s; }
+.d4 { transition-delay: 0.32s; }
+.d5 { transition-delay: 0.40s; }
+.d6 { transition-delay: 0.48s; }
+.d7 { transition-delay: 0.56s; }
+.d8 { transition-delay: 0.64s; }
+.d9 { transition-delay: 0.72s; }
+
+/* Section underline reveal */
+.line-reveal {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s ease 0.3s;
+}
+.line-reveal.in-view {
+  transform: scaleX(1);
+}
 
 /* Passenger count button */
 .count-btn {

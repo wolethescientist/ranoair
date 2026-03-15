@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 
 /* Split text into word spans — GPU-safe: only opacity + translateY */
-function SplitText({ text }) {
+function SplitText({ text, spanStyle = {} }) {
   return (
     <span>
       {text.split(' ').map((word, i) => (
@@ -11,7 +11,7 @@ function SplitText({ text }) {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 + i * 0.1, duration: 0.5, ease: 'easeOut' }}
-          style={{ display: 'inline-block', marginRight: '0.25em', willChange: 'transform' }}
+          style={{ display: 'inline-block', marginRight: '0.25em', willChange: 'transform', ...spanStyle }}
         >
           {word}
         </motion.span>
@@ -126,16 +126,16 @@ export default function Hero() {
           <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
             <SplitText text="Fly the" />
           </div>
-          <div
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
-            style={{
-              background: 'linear-gradient(90deg, #FFE5EF 0%, #FFFFFF 40%, #FFD6EA 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            <SplitText text="Rano Way." />
+          <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+            <SplitText
+              text="Rano Way."
+              spanStyle={{
+                background: 'linear-gradient(90deg, #FFE5EF 0%, #FFFFFF 50%, #FFD6EA 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            />
           </div>
         </h1>
 

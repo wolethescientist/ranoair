@@ -1,6 +1,5 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { useReveal } from '@/hooks/useReveal';
 import { Target, Eye, Heart, CheckCircle } from 'lucide-react';
 
 const values = [
@@ -27,78 +26,43 @@ const pillars = [
 ];
 
 export default function WhoWeAre() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const leftRef = useReveal();
+  const rightRef = useReveal();
 
   return (
     <section id="who-we-are" className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left — text content */}
-          <div ref={ref}>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="text-primary font-bold text-xs uppercase tracking-widest mb-4"
-            >
-              Who We Are
-            </motion.p>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark leading-tight mb-6"
-            >
+          {/* Left */}
+          <div ref={leftRef} className="fade-left">
+            <p className="text-primary font-bold text-xs uppercase tracking-widest mb-4">
+              Who We Are
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-dark leading-tight mb-6">
               Nigeria's Premium{' '}
-              <span
-                style={{
-                  background: 'linear-gradient(135deg, #A50050, #C40060)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
+              <span style={{
+                background: 'linear-gradient(135deg, #A50050, #C40060)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
                 Regional Airline
               </span>
-            </motion.h2>
+            </h2>
+            <div className="h-1 w-16 bg-primary rounded-full mb-8 line-reveal in-view" />
 
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="h-1 w-16 bg-primary rounded-full mb-8 origin-left"
-            />
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.25 }}
-              className="text-text-muted text-base leading-relaxed mb-4 font-medium"
-            >
+            <p className="text-text-muted text-base leading-relaxed mb-4 font-medium">
               Rano Air is a licensed airline, incorporated in 2019, operating under the regulations,
               guidelines and procedures of the Nigerian Civil Aviation Authority (NCAA).
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-text-muted text-base leading-relaxed mb-8 font-medium"
-            >
+            </p>
+            <p className="text-text-muted text-base leading-relaxed mb-8 font-medium">
               We focus on delivering exceptional inflight services, on-time departure and arrival,
               and other world-class aviation services to our esteemed customers. The airline currently
               operates with a fleet of five (5) EMB 145 aircraft, with its operational base in Abuja.
-            </motion.p>
+            </p>
 
-            {/* Key facts */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.45 }}
-              className="grid grid-cols-3 gap-2 sm:gap-4 mb-8"
-            >
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-8">
               {[
                 { num: '5', label: 'EMB 145\nAircraft' },
                 { num: '9', label: 'Active\nDestinations' },
@@ -115,20 +79,17 @@ export default function WhoWeAre() {
                   </div>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
-          {/* Right — vision/mission/values cards */}
-          <div className="space-y-4">
+          {/* Right */}
+          <div ref={rightRef} className="fade-right space-y-4">
             {pillars.map((pillar, i) => {
               const Icon = pillar.icon;
               return (
-                <motion.div
+                <div
                   key={pillar.label}
-                  initial={{ opacity: 0, x: 40 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.2 + i * 0.15 }}
-                  className="group p-6 rounded-3xl border border-gray-100 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300 bg-white"
+                  className={`group p-6 rounded-3xl border border-gray-100 hover:border-primary/20 hover:shadow-xl transition-all duration-300 bg-white d${i + 1}`}
                   style={{ boxShadow: '0 2px 20px rgba(165,0,80,0.05)' }}
                 >
                   <div className="flex items-start gap-4">
@@ -158,15 +119,12 @@ export default function WhoWeAre() {
                       )}
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
 
             {/* NCAA badge */}
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.7 }}
+            <div
               className="flex items-center gap-4 p-5 rounded-3xl"
               style={{ background: 'linear-gradient(135deg, #8F0145, #A50050)' }}
             >
@@ -184,7 +142,7 @@ export default function WhoWeAre() {
                   <CheckCircle className="w-4 h-4 text-green-400" />
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
