@@ -100,7 +100,7 @@ export default function Features() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.15 + i * 0.12, ease: 'easeOut' }}
-                whileHover={{ y: -6, boxShadow: '0 24px 60px rgba(165,0,80,0.18)' }}
+                whileHover={{ y: -6, scale: 1.02 }}
                 className="group bg-white rounded-3xl p-7 border border-gray-100 hover:border-primary/15 transition-all duration-300 relative overflow-hidden cursor-default"
                 style={{ boxShadow: '0 4px 24px rgba(165,0,80,0.07)' }}
               >

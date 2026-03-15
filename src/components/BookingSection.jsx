@@ -310,7 +310,7 @@ function BookFlightTab() {
       {/* Search Button */}
       <motion.button
         type="submit"
-        whileHover={{ scale: 1.02, boxShadow: '0 12px 40px rgba(165,0,80,0.4)' }}
+        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className="w-full btn-shimmer text-white font-bold py-4 rounded-2xl text-base flex items-center justify-center gap-3 shadow-lg shadow-primary/30 transition-all duration-200"
       >
@@ -364,7 +364,7 @@ function ManageBookingTab() {
 
       <motion.button
         type="submit"
-        whileHover={{ scale: 1.02, boxShadow: '0 12px 40px rgba(165,0,80,0.35)' }}
+        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className="w-full btn-shimmer text-white font-bold py-4 rounded-2xl text-base flex items-center justify-center gap-3 shadow-lg shadow-primary/30"
       >
@@ -432,7 +432,7 @@ function AgentLoginTab() {
 
       <motion.button
         type="submit"
-        whileHover={{ scale: 1.02, boxShadow: '0 12px 40px rgba(165,0,80,0.35)' }}
+        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className="w-full btn-shimmer text-white font-bold py-4 rounded-2xl text-base flex items-center justify-center gap-3 shadow-lg shadow-primary/30"
       >

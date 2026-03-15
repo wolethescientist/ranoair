@@ -45,6 +45,7 @@ export default function AppDownload() {
             <motion.div
               animate={{ y: [0, -16, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ willChange: 'transform' }}
               className="relative"
             >
               {/* Phone frame */}

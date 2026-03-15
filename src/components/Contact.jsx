@@ -194,7 +194,7 @@ export default function Contact() {
 
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02, boxShadow: '0 12px 40px rgba(165,0,80,0.35)' }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full btn-shimmer text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-primary/25"
               >

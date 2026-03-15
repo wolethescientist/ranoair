@@ -112,7 +112,8 @@ export default function Stats() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.1 + i * 0.12, ease: 'easeOut' }}
-                whileHover={{ scale: 1.04 }}
+                whileHover={{ scale: 1.03 }}
+                style={{ willChange: 'transform' }}
                 className="relative p-7 rounded-3xl text-center group transition-all duration-300"
                 style={{
                   background: 'rgba(255,255,255,0.04)',

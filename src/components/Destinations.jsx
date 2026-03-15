@@ -16,7 +16,8 @@ function DestinationCard({ dest, index }) {
       initial={{ opacity: 0, y: 50, scale: 0.95 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{ delay: index * 0.08, duration: 0.55, ease: 'easeOut' }}
-      className="group relative flex-shrink-0 w-64 sm:w-72 h-96 rounded-3xl overflow-hidden cursor-pointer shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-shadow duration-300"
+      className="group relative flex-shrink-0 w-64 sm:w-72 h-96 rounded-3xl overflow-hidden cursor-pointer shadow-xl transition-shadow duration-300"
+      style={{ willChange: 'transform' }}
     >
       {/* Background image */}
       <div className="absolute inset-0">
