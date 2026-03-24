@@ -1,6 +1,21 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+
+const SLIDES = [
+  { src: '/images/destinations/abuja.jpg', city: 'Abuja' },
+  { src: '/images/destinations/lagos.jpg', city: 'Lagos' },
+  { src: '/images/destinations/kano.jpg', city: 'Kano' },
+  { src: '/images/destinations/maiduguri.jpg', city: 'Maiduguri' },
+  { src: '/images/destinations/sokoto.jpg', city: 'Sokoto' },
+  { src: '/images/destinations/kaduna.jpg', city: 'Kaduna' },
+  { src: '/images/destinations/katsina.jpg', city: 'Katsina' },
+  { src: '/images/destinations/bauchi.jpg', city: 'Bauchi' },
+  { src: '/images/destinations/osubi.jpg', city: 'Osubi' },
+];
+
+const SLIDE_DURATION = 5000; // ms each slide stays
 
 const container = {
   hidden: {},
@@ -42,40 +57,82 @@ function AirplaneSVG() {
 
 export default function Hero() {
   const [showPlane, setShowPlane] = useState(false);
+  const [current, setCurrent] = useState(0);
 
+  // Show airplane once on mount
   useEffect(() => {
     const t = setTimeout(() => setShowPlane(true), 800);
     return () => clearTimeout(t);
+  }, []);
+
+  // Auto-advance slideshow
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % SLIDES.length);
+    }, SLIDE_DURATION);
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <section
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #6B0032 0%, #8F0145 30%, #A50050 65%, #B8005A 100%)',
-      }}
     >
-      <div className="absolute inset-0 bg-dots opacity-40 pointer-events-none" />
+      {/* ── Slideshow background ── */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 1.2, ease: 'easeInOut' }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={SLIDES[current].src}
+              alt={SLIDES[current].city}
+              fill
+              priority={current === 0}
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Dark overlay so text stays legible */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(80,0,30,0.55) 0%, rgba(107,0,50,0.68) 50%, rgba(80,0,30,0.75) 100%)',
+          }}
+        />
+
+        {/* Subtle vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 70% at 50% 40%, transparent 40%, rgba(30,0,15,0.45) 100%)',
+          }}
+        />
+      </div>
+
+      {/* ── Decorative blobs (kept, blend on top of image) ── */}
       <div
-        className="absolute rounded-full pointer-events-none hidden sm:block"
-        style={{ width: 600, height: 600, top: '-15%', left: '-10%', background: 'rgba(255,255,255,0.06)', filter: 'blur(80px)' }}
+        className="absolute rounded-full pointer-events-none hidden sm:block z-[1]"
+        style={{ width: 600, height: 600, top: '-15%', left: '-10%', background: 'rgba(255,255,255,0.04)', filter: 'blur(80px)' }}
       />
       <div
-        className="absolute rounded-full pointer-events-none hidden sm:block"
-        style={{ width: 400, height: 400, bottom: '10%', right: '-8%', background: 'rgba(255,255,255,0.04)', filter: 'blur(60px)' }}
-      />
-      <div
-        className="absolute rounded-full pointer-events-none hidden sm:block"
-        style={{ width: 280, height: 280, top: '20%', right: '20%', background: 'rgba(196,0,96,0.1)', filter: 'blur(50px)' }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 40%, rgba(196,0,96,0.2) 0%, transparent 70%)' }}
+        className="absolute rounded-full pointer-events-none hidden sm:block z-[1]"
+        style={{ width: 400, height: 400, bottom: '10%', right: '-8%', background: 'rgba(255,255,255,0.03)', filter: 'blur(60px)' }}
       />
 
+      {/* ── Airplane easter-egg ── */}
       {showPlane && <AirplaneSVG />}
 
+      {/* ── Hero content ── */}
       <motion.div
         variants={container}
         initial="hidden"
@@ -114,16 +171,44 @@ export default function Hero() {
 
         <motion.p
           variants={item}
-          className="text-white/70 text-base sm:text-lg md:text-xl font-medium max-w-2xl mx-auto mb-4"
+          className="text-white/80 text-base sm:text-lg md:text-xl font-medium max-w-2xl mx-auto mb-4"
         >
           Connecting Nigeria, one flight at a time.
         </motion.p>
 
-        <motion.p variants={item} className="text-white/45 text-sm font-medium tracking-wide">
-          Abuja · Lagos · Kano · Maiduguri · Sokoto · Kaduna · Katsina · Bauchi · Osubi
-        </motion.p>
+        {/* ── City indicator dots ── */}
+        <motion.div variants={item} className="mt-8 flex items-center justify-center gap-2">
+          {SLIDES.map((slide, i) => (
+            <button
+              key={slide.city}
+              onClick={() => setCurrent(i)}
+              aria-label={`Go to ${slide.city}`}
+              className="transition-all duration-300 rounded-full focus:outline-none"
+              style={{
+                width: i === current ? 24 : 8,
+                height: 8,
+                background: i === current ? '#fff' : 'rgba(255,255,255,0.35)',
+              }}
+            />
+          ))}
+        </motion.div>
 
-        <motion.div variants={item} className="mt-16 flex flex-col items-center gap-2">
+        {/* ── Current city name label ── */}
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={current}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.4 }}
+            className="mt-3 text-white text-xs font-bold tracking-widest uppercase"
+            style={{ textShadow: '0 2px 24px rgba(0,0,0,0.7), 0 1px 6px rgba(0,0,0,0.5)' }}
+          >
+            {SLIDES[current].city}
+          </motion.p>
+        </AnimatePresence>
+
+        <motion.div variants={item} className="mt-10 flex flex-col items-center gap-2">
           <span className="text-white/30 text-xs font-semibold tracking-widest uppercase">
             Scroll to explore
           </span>
@@ -136,8 +221,9 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
+      {/* ── Bottom fade into page ── */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-10"
         style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(255,245,248,0.95) 100%)' }}
       />
     </section>
