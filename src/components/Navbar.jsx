@@ -63,17 +63,15 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
-          scrolled
-            ? 'shadow-2xl'
-            : ''
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled ? 'shadow-2xl' : ''
         }`}
         style={{
           background: scrolled
-            ? 'rgba(143, 1, 69, 0.92)'
-            : 'rgba(143, 1, 69, 0.35)',
-          backdropFilter: scrolled ? 'blur(16px)' : 'blur(8px)',
-          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'blur(8px)',
+            ? 'rgba(143, 1, 69, 0.95)'
+            : 'transparent',
+          backdropFilter: scrolled ? 'blur(16px)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
           borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
         }}
       >
